@@ -16,13 +16,18 @@ const logger = winston.createLogger({
 
 // Функция обработки задания
 function processTask(task) {
-  // Здесь происходит обработка задания
-  // В данном примере просто эмулируем обработку с таймаутом
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      logger.info('Задание обработано:', task);
-      resolve({ result: 'Обработка успешно завершена', originalTask: task });
-    }, 3000); // Задержка в 3 секунды для эмуляции обработки
+  return new Promise((resolve, reject) => {
+    try {
+      // Вместо setTimeout здесь должен быть ваш код обработки задания
+      // В данном примере просто имитируем обработку задания
+      setTimeout(() => {
+        logger.info('Задание обработано:', { task }); // Логирование успешной обработки задания
+        resolve({ result: 'Обработка успешно завершена', originalTask: task });
+      }, 3000);
+    } catch (error) {
+      logger.error('Ошибка при обработке задания:', { task, error });
+      reject(error);
+    }
   });
 }
 
